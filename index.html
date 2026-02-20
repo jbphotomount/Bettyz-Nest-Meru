@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bettyz Nest Meru | Luxury & Comfort in Meru, Kenya</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+    <style>
+        :root {
+            --primary: #C5A059; /* Gold accent */
+            --secondary: #4A3728; /* Soft Brown */
+            --bg-cream: #F9F7F2; /* Warm Beige */
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-cream);
+            color: #333;
+            scroll-behavior: smooth;
+        }
+
+        h1, h2, h3, .font-serif {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .gold-gradient {
+            background: linear-gradient(135deg, #C5A059 0%, #D4AF37 100%);
+        }
+
+        .nav-link {
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .hero-overlay {
+            background: rgba(0, 0, 0, 0.4);
+        }
+
+        .card-hover {
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .card-hover:hover {
+            transform: translateY(-10px);
+        }
+
+        /* Page Transitions */
+        .page-section {
+            display: none;
+            min-height: 100vh;
+        }
+
+        .page-section.active {
+            display: block;
+            animation: fadeIn 0.6s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 10px; }
+
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- WhatsApp Floating Button -->
+    <a href="https://wa.me/254723255970" target="_blank" class="whatsapp-float bg-green-500 text-white p-4 rounded-full shadow-2xl hover:scale-110 transition-transform flex items-center justify-center">
+        <i class="fab fa-whatsapp text-3xl"></i>
+    </a>
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-white/90 backdrop-blur-md shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20 items-center">
+                <div class="flex-shrink-0 flex items-center cursor-pointer" onclick="navigateTo('home')">
+                    <span id="site-logo-text" class="text-2xl font-serif font-bold text-secondary">Betty’s <span class="text-[#C5A059]">Nest</span></span>
+                </div>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-8 items-center font-medium text-sm tracking-wide uppercase">
+                    <a href="javascript:void(0)" onclick="navigateTo('home')" class="nav-link text-gray-700">Home</a>
+                    <a href="javascript:void(0)" onclick="navigateTo('rooms')" class="nav-link text-gray-700">Rooms</a>
+                    <a href="javascript:void(0)" onclick="navigateTo('amenities')" class="nav-link text-gray-700">Amenities</a>
+                    <a href="javascript:void(0)" onclick="navigateTo('gallery')" class="nav-link text-gray-700">Gallery</a>
+                    <a href="javascript:void(0)" onclick="navigateTo('about')" class="nav-link text-gray-700">About</a>
+                    <a href="javascript:void(0)" onclick="navigateTo('contact')" class="nav-link text-gray-700">Contact</a>
+                    <button onclick="navigateTo('booking')" class="gold-gradient text-white px-6 py-2 rounded-full shadow-lg hover:opacity-90 transition transform active:scale-95">Book Now</button>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn" class="text-gray-700 focus:outline-none">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Drawer -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100 p-4 space-y-4 shadow-xl">
+            <a href="#" onclick="navigateTo('home')" class="block py-2 text-gray-700">Home</a>
+            <a href="#" onclick="navigateTo('rooms')" class="block py-2 text-gray-700">Rooms</a>
+            <a href="#" onclick="navigateTo('gallery')" class="block py-2 text-gray-700">Gallery</a>
+            <a href="#" onclick="navigateTo('booking')" class="block py-2 text-gray-700">Booking</a>
+            <a href="#" onclick="navigateTo('admin-login')" class="block py-2 text-gray-400 text-xs">Admin Login</a>
+        </div>
+    </nav>
+
+    <!-- CONTENT SECTIONS -->
+
+    <!-- Home Page -->
+    <section id="home" class="page-section active">
+        <!-- Hero -->
+        <div class="relative h-screen flex items-center justify-center overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&q=80&w=2070" class="absolute inset-0 w-full h-full object-cover" alt="Luxury Hotel">
+            <div class="absolute inset-0 hero-overlay"></div>
+            <div class="relative text-center text-white px-4 animate__animated animate__fadeInUp">
+                <h2 class="text-lg uppercase tracking-widest mb-4">Welcome to Meru's Hidden Gem</h2>
+                <h1 class="text-5xl md:text-7xl font-serif mb-6">Betty’s Nest Meru</h1>
+                <p class="max-w-2xl mx-auto text-lg mb-8 opacity-90">Experience luxury living in the heart of Meru. Where elegance meets the warmth of Kenyan hospitality.</p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <button onclick="navigateTo('rooms')" class="gold-gradient px-8 py-4 rounded-full text-lg font-semibold shadow-2xl">Explore Rooms</button>
+                    <button onclick="navigateTo('booking')" class="bg-white text-secondary px-8 py-4 rounded-full text-lg font-semibold shadow-2xl hover:bg-gray-100">Make a Reservation</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Featured Highlights -->
+        <div class="py-20 max-w-7xl mx-auto px-4 grid md:grid-cols-3 gap-12 text-center">
+            <div>
+                <i class="fas fa-concierge-bell text-4xl text-[#C5A059] mb-4"></i>
+                <h3 class="text-xl font-serif font-bold mb-2">Premium Service</h3>
+                <p class="text-gray-600">Dedicated staff ready to cater to your every need 24/7.</p>
+            </div>
+            <div>
+                <i class="fas fa-map-marked-alt text-4xl text-[#C5A059] mb-4"></i>
+                <h3 class="text-xl font-serif font-bold mb-2">Prime Location</h3>
+                <p class="text-gray-600">Perfectly situated for business and leisure travelers in Meru.</p>
+            </div>
+            <div>
+                <i class="fas fa-shield-alt text-4xl text-[#C5A059] mb-4"></i>
+                <h3 class="text-xl font-serif font-bold mb-2">Secure & Private</h3>
+                <p class="text-gray-600">Peace of mind with 24-hour security and private gated access.</p>
+            </div>
+        </div>
+
+        <!-- Room Showcase Cards -->
+        <div class="bg-stone-100 py-20">
+            <div class="max-w-7xl mx-auto px-4">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl font-serif font-bold">Luxury Accommodations</h2>
+                    <div class="h-1 w-24 bg-[#C5A059] mx-auto mt-4"></div>
+                </div>
+                <div id="home-rooms-list" class="grid md:grid-cols-3 gap-8">
+                    <!-- Dynamic Content From JS -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Rooms Page -->
+    <section id="rooms" class="page-section pt-32 pb-20">
+        <div class="max-w-7xl mx-auto px-4">
+            <h1 class="text-5xl font-serif font-bold text-center mb-4">Our Sanctuary</h1>
+            <p class="text-center text-gray-600 mb-16">A range of options tailored to your comfort.</p>
+            <div id="all-rooms-list" class="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
+                <!-- Dynamic Content -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Room Details Page -->
+    <section id="room-details" class="page-section pt-32 pb-20">
+        <div class="max-w-5xl mx-auto px-4" id="room-details-container">
+            <!-- Dynamic Content -->
+        </div>
+    </section>
+
+    <!-- Amenities Page -->
+    <section id="amenities" class="page-section pt-32 pb-20 bg-stone-50">
+        <div class="max-w-7xl mx-auto px-4">
+            <h1 class="text-5xl font-serif font-bold text-center mb-12">Property Amenities</h1>
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8">
+                <div class="bg-white p-8 rounded-2xl shadow-sm text-center card-hover">
+                    <i class="fas fa-parking text-3xl text-primary mb-4"></i>
+                    <p class="font-semibold">Free Parking</p>
+                </div>
+                <div class="bg-white p-8 rounded-2xl shadow-sm text-center card-hover">
+                    <i class="fas fa-wifi text-3xl text-primary mb-4"></i>
+                    <p class="font-semibold">Free Wi-Fi</p>
+                </div>
+                <div class="bg-white p-8 rounded-2xl shadow-sm text-center card-hover">
+                    <i class="fas fa-wheelchair text-3xl text-primary mb-4"></i>
+                    <p class="font-semibold">Accessible</p>
+                </div>
+                <div class="bg-white p-8 rounded-2xl shadow-sm text-center card-hover">
+                    <i class="fas fa-child text-3xl text-primary mb-4"></i>
+                    <p class="font-semibold">Kid Friendly</p>
+                </div>
+                <div class="bg-white p-8 rounded-2xl shadow-sm text-center card-hover">
+                    <i class="fas fa-utensils text-3xl text-primary mb-4"></i>
+                    <p class="font-semibold">Kitchenette</p>
+                </div>
+                <div class="bg-white p-8 rounded-2xl shadow-sm text-center card-hover">
+                    <i class="fas fa-smoking-ban text-3xl text-primary mb-4"></i>
+                    <p class="font-semibold">Smoke Free</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Page -->
+    <section id="gallery" class="page-section pt-32 pb-20">
+        <div class="max-w-7xl mx-auto px-4">
+            <h1 class="text-5xl font-serif font-bold text-center mb-12">Our Portfolio</h1>
+            <div id="gallery-grid" class="columns-1 md:columns-3 gap-4 space-y-4">
+                <!-- Dynamic Gallery Items -->
+            </div>
+        </div>
+    </section>
+
+    <!-- About Page -->
+    <section id="about" class="page-section pt-32 pb-20">
+        <div class="max-w-7xl mx-auto px-4 grid md:grid-cols-2 gap-16 items-center">
+            <div>
+                <h1 class="text-5xl font-serif font-bold mb-6">Our Story</h1>
+                <p class="text-gray-600 mb-6 leading-relaxed">Betty’s Nest Meru was established with a single vision: to provide a home away from home for the discerning traveler. Located in the serene outskirts of Meru town, we offer a tranquil escape from the hustle and bustle.</p>
+                <p class="text-gray-600 mb-6 leading-relaxed">Our commitment to excellence is reflected in every detail of our property, from the carefully selected linens to our locally sourced breakfast ingredients.</p>
+                <div class="grid grid-cols-2 gap-8 mt-12">
+                    <div>
+                        <span class="text-4xl font-serif font-bold text-primary">10+</span>
+                        <p class="text-sm text-gray-500 uppercase tracking-widest mt-2">Luxury Rooms</p>
+                    </div>
+                    <div>
+                        <span class="text-4xl font-serif font-bold text-primary">5k+</span>
+                        <p class="text-sm text-gray-500 uppercase tracking-widest mt-2">Happy Guests</p>
+                    </div>
+                </div>
+            </div>
+            <div class="relative">
+                <img src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&q=80&w=1000" class="rounded-3xl shadow-2xl" alt="About Image">
+            </div>
+        </div>
+    </section>
+
+    <!-- Booking Page -->
+    <section id="booking" class="page-section pt-32 pb-20 bg-stone-100">
+        <div class="max-w-4xl mx-auto px-4 bg-white p-8 md:p-12 rounded-3xl shadow-xl">
+            <h1 class="text-4xl font-serif font-bold text-center mb-8">Reservation Request</h1>
+            <form id="booking-form" class="grid md:grid-cols-2 gap-6">
+                <div class="md:col-span-2">
+                    <label class="block text-sm font-semibold mb-2">Full Name</label>
+                    <input type="text" id="booking-name" required class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary outline-none">
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold mb-2">Check-in Date</label>
+                    <input type="date" id="check-in" required class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary outline-none">
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold mb-2">Check-out Date</label>
+                    <input type="date" id="check-out" required class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary outline-none">
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold mb-2">Guests</label>
+                    <select id="guest-count" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary outline-none">
+                        <option>1 Guest</option>
+                        <option>2 Guests</option>
+                        <option>3 Guests</option>
+                        <option>4+ Guests</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold mb-2">Room Preference</label>
+                    <select id="booking-room-type" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary outline-none">
+                        <!-- Dynamic list from rooms data -->
+                    </select>
+                </div>
+                <div class="md:col-span-2 mt-4">
+                    <button type="submit" class="w-full gold-gradient text-white py-4 rounded-xl font-bold text-lg shadow-xl hover:opacity-95 transition flex items-center justify-center gap-2">
+                        <i class="fab fa-whatsapp"></i> Confirm via WhatsApp
+                    </button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- Contact Page -->
+    <section id="contact" class="page-section pt-32 pb-20">
+        <div class="max-w-7xl mx-auto px-4 grid md:grid-cols-2 gap-12">
+            <div>
+                <h1 class="text-5xl font-serif font-bold mb-6">Get in Touch</h1>
+                <p class="text-gray-600 mb-10">Have questions? We are here to help you plan your perfect stay in Meru.</p>
+                
+                <div class="space-y-6">
+                    <div class="flex items-start gap-4">
+                        <div class="w-12 h-12 bg-stone-100 rounded-full flex items-center justify-center text-primary flex-shrink-0">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div>
+                            <p class="font-bold">Phone Number</p>
+                            <a href="tel:0723255970" class="text-gray-500 hover:text-primary transition">0723 255 970</a>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4">
+                        <div class="w-12 h-12 bg-stone-100 rounded-full flex items-center justify-center text-primary flex-shrink-0">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div>
+                            <p class="font-bold">Location</p>
+                            <p class="text-gray-500">Meru, Kenya</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Google Map Placeholder (Meru) -->
+                <div class="mt-12 rounded-2xl overflow-hidden shadow-lg border-4 border-white h-64">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15959.03058448897!2d37.6416187!3d0.0526084!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x178821966a34a743%3A0xc665e8a56b666795!2sMeru!5e0!3m2!1sen!2ske!4v1690000000000!5m2!1sen!2ske" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+            </div>
+            <div class="bg-stone-50 p-10 rounded-3xl">
+                <form id="contact-form" class="space-y-6">
+                    <div>
+                        <label class="block text-sm font-semibold mb-2">Your Name</label>
+                        <input type="text" required class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold mb-2">Email Address</label>
+                        <input type="email" required class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold mb-2">Message</label>
+                        <textarea rows="4" required class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary outline-none"></textarea>
+                    </div>
+                    <button class="w-full gold-gradient text-white py-4 rounded-xl font-bold shadow-lg">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Page -->
+    <section id="faq" class="page-section pt-32 pb-20">
+        <div class="max-w-3xl mx-auto px-4">
+            <h1 class="text-5xl font-serif font-bold text-center mb-12">Frequently Asked Questions</h1>
+            <div class="space-y-6">
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-stone-100">
+                    <h3 class="font-bold text-lg mb-2">What time is check-in and check-out?</h3>
+                    <p class="text-gray-600">Check-in starts from 2:00 PM and check-out is by 11:00 AM.</p>
+                </div>
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-stone-100">
+                    <h3 class="font-bold text-lg mb-2">Is breakfast included?</h3>
+                    <p class="text-gray-600">Depending on your room selection, breakfast can be included or provided as an add-on service.</p>
+                </div>
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-stone-100">
+                    <h3 class="font-bold text-lg mb-2">Is there parking available?</h3>
+                    <p class="text-gray-600">Yes, we provide complimentary secure parking for all our guests.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Admin Login -->
+    <section id="admin-login" class="page-section pt-32 pb-20 bg-stone-800 flex items-center">
+        <div class="max-w-md mx-auto px-4 w-full">
+            <div class="bg-white p-10 rounded-3xl shadow-2xl">
+                <div class="text-center mb-8">
+                    <i class="fas fa-lock text-4xl text-primary mb-4"></i>
+                    <h2 class="text-3xl font-serif font-bold">Admin Portal</h2>
+                    <p class="text-gray-400">Secure Access Only</p>
+                </div>
+                <form id="login-form" class="space-y-6">
+                    <div>
+                        <label class="block text-sm font-semibold mb-2">Username</label>
+                        <input type="text" id="admin-user" required class="w-full px-4 py-3 rounded-xl border border-gray-200 outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold mb-2">Password</label>
+                        <input type="password" id="admin-pass" required class="w-full px-4 py-3 rounded-xl border border-gray-200 outline-none">
+                    </div>
+                    <button type="submit" class="w-full bg-secondary text-white py-4 rounded-xl font-bold hover:bg-black transition">Login Dashboard</button>
+                    <p id="login-error" class="text-red-500 text-sm hidden text-center mt-4">Invalid credentials. Access denied.</p>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Secure Admin Dashboard -->
+    <section id="admin-dashboard" class="page-section pt-32 pb-20 bg-stone-50">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center mb-12">
+                <h1 class="text-4xl font-serif font-bold">Manager Dashboard</h1>
+                <div class="flex gap-4 mt-4 md:mt-0">
+                    <button onclick="logout()" class="bg-red-500 text-white px-6 py-2 rounded-lg text-sm">Logout</button>
+                </div>
+            </div>
+
+            <!-- Tabs -->
+            <div class="flex gap-4 mb-8 overflow-x-auto pb-2">
+                <button onclick="toggleAdminTab('rooms-mgt')" class="admin-tab-btn active bg-secondary text-white px-6 py-2 rounded-full whitespace-nowrap">Manage Rooms</button>
+                <button onclick="toggleAdminTab('gallery-mgt')" class="admin-tab-btn bg-white border px-6 py-2 rounded-full whitespace-nowrap">Gallery & Media</button>
+                <button onclick="toggleAdminTab('site-mgt')" class="admin-tab-btn bg-white border px-6 py-2 rounded-full whitespace-nowrap">Site Settings</button>
+            </div>
+
+            <!-- Room Management -->
+            <div id="rooms-mgt" class="admin-panel animate__animated animate__fadeIn">
+                <div class="bg-white p-8 rounded-2xl shadow-sm mb-12">
+                    <h2 class="text-2xl font-serif font-bold mb-6">Add New Room</h2>
+                    <form id="add-room-form" class="grid md:grid-cols-3 gap-6">
+                        <div>
+                            <label class="block text-xs font-bold uppercase mb-2">Room Title</label>
+                            <input type="text" id="new-room-title" required class="w-full border p-3 rounded-lg">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold uppercase mb-2">Price (KSh)</label>
+                            <input type="number" id="new-room-price" required class="w-full border p-3 rounded-lg">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold uppercase mb-2">Room Photo</label>
+                            <input type="file" id="new-room-img" accept="image/*" class="w-full text-sm">
+                        </div>
+                        <div class="md:col-span-3">
+                            <label class="block text-xs font-bold uppercase mb-2">Short Description</label>
+                            <textarea id="new-room-desc" class="w-full border p-3 rounded-lg" rows="2"></textarea>
+                        </div>
+                        <button type="submit" class="md:col-span-3 bg-primary text-white py-3 rounded-lg font-bold">Publish Room</button>
+                    </form>
+                </div>
+
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" id="admin-rooms-list">
+                    <!-- Admin Room Cards -->
+                </div>
+            </div>
+
+            <!-- Gallery Management -->
+            <div id="gallery-mgt" class="admin-panel hidden animate__animated animate__fadeIn">
+                <div class="bg-white p-8 rounded-2xl shadow-sm mb-12">
+                    <h2 class="text-2xl font-serif font-bold mb-6">Upload to Gallery</h2>
+                    <input type="file" id="gallery-upload" multiple accept="image/*" class="mb-4 block w-full">
+                    <button onclick="handleGalleryUpload()" class="bg-secondary text-white px-8 py-3 rounded-lg">Upload Images</button>
+                </div>
+                <div id="admin-gallery-list" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                    <!-- Admin Gallery Thumbnails -->
+                </div>
+            </div>
+
+            <!-- Site Settings -->
+            <div id="site-mgt" class="admin-panel hidden animate__animated animate__fadeIn">
+                <div class="bg-white p-8 rounded-2xl shadow-sm">
+                    <h2 class="text-2xl font-serif font-bold mb-6">Appearance & Info</h2>
+                    <div class="space-y-8">
+                        <div>
+                            <label class="block font-bold mb-2">Site Name / Logo Text</label>
+                            <div class="flex gap-4">
+                                <input type="text" id="set-logo-text" class="border p-3 rounded-lg flex-1" placeholder="Betty's Nest Meru">
+                                <button onclick="updateLogoText()" class="bg-primary text-white px-6 rounded-lg">Save</button>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block font-bold mb-2">Hero Main Heading</label>
+                            <div class="flex gap-4">
+                                <input type="text" id="set-hero-text" class="border p-3 rounded-lg flex-1" placeholder="Luxury Living">
+                                <button onclick="updateHeroText()" class="bg-primary text-white px-6 rounded-lg">Save</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-secondary text-white pt-20 pb-10">
+        <div class="max-w-7xl mx-auto px-4 grid md:grid-cols-4 gap-12 border-b border-white/10 pb-16">
+            <div class="col-span-2">
+                <h3 class="text-3xl font-serif font-bold mb-6">Betty’s Nest Meru</h3>
+                <p class="text-white/60 max-w-sm mb-6">A premium accommodation facility in Meru offering comfort, style, and world-class service to every guest.</p>
+                <div class="flex gap-4">
+                    <a href="#" class="w-10 h-10 border border-white/20 rounded-full flex items-center justify-center hover:bg-primary transition"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="w-10 h-10 border border-white/20 rounded-full flex items-center justify-center hover:bg-primary transition"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="w-10 h-10 border border-white/20 rounded-full flex items-center justify-center hover:bg-primary transition"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+            <div>
+                <h4 class="font-bold mb-6 uppercase text-sm tracking-widest text-primary">Quick Links</h4>
+                <ul class="space-y-4 text-white/70">
+                    <li><a href="#" onclick="navigateTo('rooms')" class="hover:text-white transition">Luxury Rooms</a></li>
+                    <li><a href="#" onclick="navigateTo('amenities')" class="hover:text-white transition">Amenities</a></li>
+                    <li><a href="#" onclick="navigateTo('gallery')" class="hover:text-white transition">Photo Gallery</a></li>
+                    <li><a href="#" onclick="navigateTo('faq')" class="hover:text-white transition">Common Questions</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-bold mb-6 uppercase text-sm tracking-widest text-primary">Contact Us</h4>
+                <p class="text-white/70 mb-2">Meru, Kenya</p>
+                <p class="text-white/70 mb-2">Phone: 0723 255 970</p>
+                <p class="text-white/70">Email: stay@bettysnest.co.ke</p>
+            </div>
+        </div>
+        <div class="text-center pt-10 text-white/40 text-sm">
+            &copy; 2023 Betty’s Nest Meru. Designed for Excellence. | <a href="#" onclick="navigateTo('admin-login')" class="hover:text-primary underline">Admin</a>
+        </div>
+    </footer>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // DATA INITIALIZATION
+        let rooms = JSON.parse(localStorage.getItem('hotel_rooms')) || [
+            {
+                id: 1,
+                title: 'Single Sanctuary',
+                price: 3500,
+                desc: 'A cozy haven for solo travelers looking for comfort and tranquility.',
+                img: 'https://images.unsplash.com/photo-1631049307264-da0ec9d70304?auto=format&fit=crop&q=80&w=800',
+                features: ['Free Wi-Fi', 'Queen Bed', 'Workspace', 'Mountain View']
+            },
+            {
+                id: 2,
+                title: 'Deluxe Suite',
+                price: 5500,
+                desc: 'Premium space with elegant furnishings and a spacious lounge area.',
+                img: 'https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&q=80&w=800',
+                features: ['King Bed', 'Coffee Station', 'Luxury Bath', 'Room Service']
+            },
+            {
+                id: 3,
+                title: 'Family Haven',
+                price: 8500,
+                desc: 'The perfect suite for families, featuring interconnected rooms and kitchen facilities.',
+                img: 'https://images.unsplash.com/photo-1591088398332-8a77d399a80c?auto=format&fit=crop&q=80&w=800',
+                features: ['2 Bedrooms', 'Full Kitchen', 'Kid Friendly', 'Balcony']
+            }
+        ];
+
+        let gallery = JSON.parse(localStorage.getItem('hotel_gallery')) || [
+            'https://images.unsplash.com/photo-1455587734955-081b22074882?auto=format&fit=crop&w=600',
+            'https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=600',
+            'https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=600',
+            'https://images.unsplash.com/photo-1582719478250-c89cae4df85b?auto=format&fit=crop&w=600',
+            'https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&w=600',
+            'https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=600'
+        ];
+
+        // ROUTING SYSTEM
+        function navigateTo(pageId, roomId = null) {
+            // Hide all sections
+            document.querySelectorAll('.page-section').forEach(section => {
+                section.classList.remove('active');
+            });
+
+            // Show target section
+            const target = document.getElementById(pageId);
+            if(target) {
+                target.classList.add('active');
+                window.scrollTo(0, 0);
+            }
+
+            // Specific Page Logic
+            if(pageId === 'home') renderHomeRooms();
+            if(pageId === 'rooms') renderAllRooms();
+            if(pageId === 'gallery') renderGallery();
+            if(pageId === 'room-details' && roomId) renderRoomDetails(roomId);
+            if(pageId === 'booking') populateBookingForm(roomId);
+            if(pageId === 'admin-dashboard') checkAuth();
+
+            // Close mobile menu
+            document.getElementById('mobile-menu').classList.add('hidden');
+        }
+
+        // RENDERERS
+        function renderHomeRooms() {
+            const container = document.getElementById('home-rooms-list');
+            container.innerHTML = rooms.slice(0, 3).map(room => `
+                <div class="bg-white rounded-3xl overflow-hidden shadow-lg card-hover">
+                    <div class="relative h-64">
+                        <img src="${room.img}" class="w-full h-full object-cover" alt="${room.title}">
+                        <div class="absolute top-4 right-4 bg-white/90 px-4 py-1 rounded-full font-bold text-secondary">
+                            KSh ${room.price} <span class="text-xs font-normal">/ Night</span>
+                        </div>
+                    </div>
+                    <div class="p-8">
+                        <h3 class="text-2xl font-serif font-bold mb-3">${room.title}</h3>
+                        <p class="text-gray-500 text-sm mb-6 line-clamp-2">${room.desc}</p>
+                        <div class="flex items-center justify-between">
+                            <button onclick="navigateTo('room-details', ${room.id})" class="text-primary font-bold hover:underline">View Details</button>
+                            <button onclick="navigateTo('booking', ${room.id})" class="bg-stone-100 text-secondary px-4 py-2 rounded-lg text-sm font-bold">Book Now</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderAllRooms() {
+            const container = document.getElementById('all-rooms-list');
+            container.innerHTML = rooms.map(room => `
+                <div class="bg-white rounded-3xl overflow-hidden shadow-md hover:shadow-2xl transition-all group">
+                    <div class="relative h-56 overflow-hidden">
+                        <img src="${room.img}" class="w-full h-full object-cover transition duration-700 group-hover:scale-110" alt="${room.title}">
+                        <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition"></div>
+                    </div>
+                    <div class="p-8">
+                        <div class="flex justify-between items-start mb-4">
+                            <h3 class="text-2xl font-serif font-bold">${room.title}</h3>
+                            <span class="text-primary font-bold">KSh ${room.price}</span>
+                        </div>
+                        <p class="text-gray-500 text-sm mb-6">${room.desc}</p>
+                        <div class="flex gap-4">
+                            <button onclick="navigateTo('room-details', ${room.id})" class="flex-1 border border-stone-200 py-3 rounded-xl hover:bg-stone-50 transition font-semibold">Details</button>
+                            <button onclick="navigateTo('booking', ${room.id})" class="flex-1 gold-gradient text-white py-3 rounded-xl shadow-lg transition font-semibold">Reserve</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderRoomDetails(id) {
+            const room = rooms.find(r => r.id == id);
+            const container = document.getElementById('room-details-container');
+            if(!room) return;
+
+            container.innerHTML = `
+                <div class="grid md:grid-cols-2 gap-12">
+                    <div class="space-y-4">
+                        <img src="${room.img}" class="w-full h-[400px] object-cover rounded-3xl shadow-xl" alt="${room.title}">
+                        <div class="grid grid-cols-3 gap-4">
+                             <img src="${room.img}" class="h-24 w-full object-cover rounded-xl opacity-60">
+                             <img src="https://images.unsplash.com/photo-1540518614846-7eded433c457?auto=format&fit=crop&w=400" class="h-24 w-full object-cover rounded-xl opacity-60">
+                             <img src="https://images.unsplash.com/photo-1507652313519-d4e9174996dd?auto=format&fit=crop&w=400" class="h-24 w-full object-cover rounded-xl opacity-60">
+                        </div>
+                    </div>
+                    <div>
+                        <span class="text-primary font-bold uppercase tracking-widest text-sm">Luxury Stay</span>
+                        <h1 class="text-5xl font-serif font-bold mt-2 mb-6">${room.title}</h1>
+                        <p class="text-3xl font-bold mb-8 text-secondary">KSh ${room.price} <span class="text-sm font-normal text-gray-400">/ per night</span></p>
+                        
+                        <div class="mb-8">
+                            <h4 class="font-bold mb-4 uppercase text-xs tracking-tighter">Description</h4>
+                            <p class="text-gray-600 leading-relaxed">${room.desc}</p>
+                        </div>
+
+                        <div class="mb-10">
+                            <h4 class="font-bold mb-4 uppercase text-xs tracking-tighter">Amenities</h4>
+                            <div class="grid grid-cols-2 gap-4">
+                                ${room.features.map(f => `<div class="flex items-center gap-2 text-sm text-gray-600"><i class="fas fa-check text-primary"></i> ${f}</div>`).join('')}
+                            </div>
+                        </div>
+
+                        <div class="flex flex-col gap-4">
+                            <button onclick="navigateTo('booking', ${room.id})" class="w-full gold-gradient text-white py-4 rounded-xl font-bold text-lg shadow-xl">Secure This Room</button>
+                            <a href="https://wa.me/254723255970" target="_blank" class="w-full text-center border border-gray-200 py-4 rounded-xl font-bold text-secondary hover:bg-stone-50">Quick WhatsApp Enquiry</a>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderGallery() {
+            const container = document.getElementById('gallery-grid');
+            container.innerHTML = gallery.map(img => `
+                <div class="relative group cursor-pointer overflow-hidden rounded-xl">
+                    <img src="${img}" class="w-full object-cover transition duration-500 group-hover:scale-110" loading="lazy">
+                    <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
+                         <i class="fas fa-search-plus text-white text-3xl"></i>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // BOOKING SYSTEM
+        function populateBookingForm(roomId) {
+            const select = document.getElementById('booking-room-type');
+            select.innerHTML = rooms.map(r => `<option value="${r.title}" ${r.id == roomId ? 'selected' : ''}>${r.title} - KSh ${r.price}</option>`).join('');
+        }
+
+        document.getElementById('booking-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('booking-name').value;
+            const checkIn = document.getElementById('check-in').value;
+            const checkOut = document.getElementById('check-out').value;
+            const guests = document.getElementById('guest-count').value;
+            const room = document.getElementById('booking-room-type').value;
+
+            const message = `*BETTY'S NEST BOOKING REQUEST*%0A%0A` +
+                            `*Name:* ${name}%0A` +
+                            `*Room:* ${room}%0A` +
+                            `*Dates:* ${checkIn} to ${checkOut}%0A` +
+                            `*Guests:* ${guests}`;
+            
+            window.open(`https://wa.me/254723255970?text=${message}`, '_blank');
+        });
+
+        // ADMIN LOGIC
+        document.getElementById('login-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const user = document.getElementById('admin-user').value;
+            const pass = document.getElementById('admin-pass').value;
+
+            // Simple demonstration security - normally handled by backend
+            if(user === 'admin' && pass === 'meru2023') {
+                sessionStorage.setItem('hotel_auth', 'true');
+                navigateTo('admin-dashboard');
+            } else {
+                document.getElementById('login-error').classList.remove('hidden');
+            }
+        });
+
+        function checkAuth() {
+            if(sessionStorage.getItem('hotel_auth') !== 'true') {
+                navigateTo('admin-login');
+            } else {
+                renderAdminRooms();
+                renderAdminGallery();
+            }
+        }
+
+        function logout() {
+            sessionStorage.removeItem('hotel_auth');
+            navigateTo('home');
+        }
+
+        function toggleAdminTab(panelId) {
+            document.querySelectorAll('.admin-panel').forEach(p => p.classList.add('hidden'));
+            document.querySelectorAll('.admin-tab-btn').forEach(b => b.classList.remove('active', 'bg-secondary', 'text-white'));
+            
+            document.getElementById(panelId).classList.remove('hidden');
+            event.target.classList.add('active', 'bg-secondary', 'text-white');
+        }
+
+        // Add Room Handler
+        document.getElementById('add-room-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const title = document.getElementById('new-room-title').value;
+            const price = document.getElementById('new-room-price').value;
+            const desc = document.getElementById('new-room-desc').value;
+            const imgFile = document.getElementById('new-room-img').files[0];
+
+            const handleRoomSave = (imgUrl) => {
+                const newRoom = {
+                    id: Date.now(),
+                    title,
+                    price,
+                    desc,
+                    img: imgUrl || 'https://images.unsplash.com/photo-1540518614846-7eded433c457?auto=format&fit=crop&w=400',
+                    features: ['Free Wi-Fi', 'Premium Bedding', 'Hot Shower']
+                };
+                rooms.push(newRoom);
+                localStorage.setItem('hotel_rooms', JSON.stringify(rooms));
+                renderAdminRooms();
+                this.reset();
+            };
+
+            if(imgFile) {
+                const reader = new FileReader();
+                reader.onload = (e) => handleRoomSave(e.target.result);
+                reader.readAsDataURL(imgFile);
+            } else {
+                handleRoomSave();
+            }
+        });
+
+        function renderAdminRooms() {
+            const container = document.getElementById('admin-rooms-list');
+            container.innerHTML = rooms.map(room => `
+                <div class="bg-white p-4 rounded-xl shadow-sm border">
+                    <img src="${room.img}" class="h-32 w-full object-cover rounded-lg mb-4">
+                    <h4 class="font-bold">${room.title}</h4>
+                    <p class="text-sm text-gray-500 mb-4">KSh ${room.price}</p>
+                    <button onclick="deleteRoom(${room.id})" class="text-red-500 text-xs font-bold uppercase hover:underline">Delete Room</button>
+                </div>
+            `).join('');
+        }
+
+        function deleteRoom(id) {
+            rooms = rooms.filter(r => r.id !== id);
+            localStorage.setItem('hotel_rooms', JSON.stringify(rooms));
+            renderAdminRooms();
+        }
+
+        // Gallery Admin
+        function handleGalleryUpload() {
+            const files = document.getElementById('gallery-upload').files;
+            Array.from(files).forEach(file => {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    gallery.push(e.target.result);
+                    localStorage.setItem('hotel_gallery', JSON.stringify(gallery));
+                    renderAdminGallery();
+                };
+                reader.readAsDataURL(file);
+            });
+        }
+
+        function renderAdminGallery() {
+            const container = document.getElementById('admin-gallery-list');
+            container.innerHTML = gallery.map((img, idx) => `
+                <div class="relative group h-24">
+                    <img src="${img}" class="w-full h-full object-cover rounded-lg">
+                    <button onclick="deleteGalleryImg(${idx})" class="absolute top-1 right-1 bg-red-500 text-white w-6 h-6 rounded-full text-[10px] flex items-center justify-center opacity-0 group-hover:opacity-100 transition">×</button>
+                </div>
+            `).join('');
+        }
+
+        function deleteGalleryImg(idx) {
+            gallery.splice(idx, 1);
+            localStorage.setItem('hotel_gallery', JSON.stringify(gallery));
+            renderAdminGallery();
+        }
+
+        // Settings
+        function updateLogoText() {
+            const text = document.getElementById('set-logo-text').value;
+            if(text) {
+                document.getElementById('site-logo-text').innerText = text;
+                localStorage.setItem('hotel_logo_text', text);
+            }
+        }
+
+        // INITIALIZATION
+        window.onload = () => {
+            const savedLogo = localStorage.getItem('hotel_logo_text');
+            if(savedLogo) document.getElementById('site-logo-text').innerText = savedLogo;
+            
+            renderHomeRooms();
+            
+            // Hamburger Logic
+            document.getElementById('mobile-menu-btn').onclick = () => {
+                const menu = document.getElementById('mobile-menu');
+                menu.classList.toggle('hidden');
+            };
+        };
+
+    </script>
+</body>
+</html>
